@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.edit import FormMixin
 from .models import Order, ResponseOrder
@@ -34,9 +34,9 @@ class OrderDetailView(FormMixin, DetailView):
             return self.form_invalid(form)
 
     def form_valid(self, form):
-        instance = form.save(commit=False)
-        # instance.executer = Executer.objects.get(user=request.user)
-        instance.save()
+        form.instance.executer = Executer.objects.get(user=self.request.user)
+        form.instance.order = self.object
+        form.save()
         return super(OrderDetailView, self).form_valid(form)
 
 class OrderListView(ListView):

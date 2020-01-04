@@ -42,9 +42,7 @@ class ResponseOrder(models.Model):
                               on_delete=models.CASCADE)
     executer = models.ForeignKey(Executer,
                                  related_name='responses_orders',
-                                 on_delete=models.SET_NULL,
-                                 blank=True,
-                                 null=True)
+                                 on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     condition = models.BooleanField(default=False)
 
