@@ -1,0 +1,10 @@
+<h3>{{ order.title }}</h3>
+<form class=""  method="post">{% csrf_token %}
+  {{form.as_p}}
+  <input type="submit" name="" value="Отправить">
+</form>
+<hr>
+{% for response in responses%}
+{{response}}
+<br>
+{% endfor %}
