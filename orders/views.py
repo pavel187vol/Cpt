@@ -36,15 +36,15 @@ class OrderDetailView(FormMixin, DetailView):
             order.approv(executer)
             return HttpResponse(executer)
         elif request.user.executer.all():
-            return HttpResponseForbidden()
+            self.object = self.get_object()
+            form = self.get_form()
+            if form.is_valid():
+                return self.form_valid(form)
+            else:
+                return self.form_invalid(form)
         else:
-            return HttpResponse(executers.count())
-        self.object = self.get_object()
-        form = self.get_form()
-        if form.is_valid():
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+            return HttpResponse('lox')
+
 
     def form_valid(self, form):
         form.instance.executer = Executer.objects.get(user=self.request.user)
