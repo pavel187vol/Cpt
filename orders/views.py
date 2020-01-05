@@ -29,14 +29,13 @@ class OrderDetailView(FormMixin, DetailView):
         return context
 
     def post(self, request, *args, **kwargs):
-        executers = Executer.objects.values_list('user', flat=True)
         if request.POST.get('parent', None):
             executer_id = request.POST.get('parent')
             executer = Executer.objects.get(id=executer_id)
             order = self.get_object()
             order.approv(executer)
             return HttpResponse(executer)
-        elif request.user in executers:
+        elif request.user.executer.all():
             return HttpResponseForbidden()
         else:
             return HttpResponse(executers.count())
@@ -68,10 +67,10 @@ class OrderCreateView(CreateView):
 
 
     def get(self, request, *args, **kwargs):
-        customers = Customer.objects.values_list('user', flat=True)
-        if request.user not in customers:
-            return redirect(self.success_url)
-        return super().post(request, *args, **kwargs)
+        customers = Customer.objects.all()
+        if request.user.customer.all():
+            return super().post(request, *args, **kwargs)
+        return redirect(self.success_url)
 
     def post(self, request, *args, **kwargs):
         customers = Customer.objects.values_list('user', flat=True)
