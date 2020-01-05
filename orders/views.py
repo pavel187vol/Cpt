@@ -30,10 +30,16 @@ class OrderDetailView(FormMixin, DetailView):
 
     def post(self, request, *args, **kwargs):
         executers = Executer.objects.values_list('user', flat=True)
-        if request.user in executers:
+        if request.POST.get('parent', None):
+            executer_id = request.POST.get('parent')
+            executer = Executer.objects.get(id=executer_id)
+            order = self.get_object()
+            order.approv(executer)
+            return HttpResponse(executer)
+        elif request.user in executers:
             return HttpResponseForbidden()
         else:
-            return HttpResponse('p')
+            return HttpResponse(executers.count())
         self.object = self.get_object()
         form = self.get_form()
         if form.is_valid():

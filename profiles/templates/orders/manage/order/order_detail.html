@@ -11,9 +11,19 @@
 <hr>
 {% for response in responses%}
 {{response}}
+<form method="post" id="formExecuter">{% csrf_token %}
+  <input type="hidden" name="parent" value="{{response.executer_id}}">
+  <input type="submit" value="Ok">
+</form>
+<!-- <a href="#formExecuter" onclick="approv('{{response.executer}}')">a</a> -->
 {% if request.user == creator.user%}
 <a href="{% url 'order:response_detail' pk=response.pk%}">Одобрить</a>
 {% endif %}
 <a href="{{response.executer.get_absolute_url}}">{{response.executer}}</a>
 <br>
+<!-- <script>
+  function approv(executer){
+    document.getElementById('parent').value = executer;
+  } -->
+<!-- </script> -->
 {% endfor %}
