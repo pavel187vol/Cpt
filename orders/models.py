@@ -1,7 +1,7 @@
 from django.db import models
 from profiles.models import Customer, Executer
 from django.utils.text import slugify
-
+from django.urls import reverse
 
 class Order(models.Model):
     customer = models.ForeignKey(Customer,
@@ -29,6 +29,10 @@ class Order(models.Model):
         self.executer = executer_app
         self.condition = True
         self.save()
+
+    def get_absolute_url(self):
+        return reverse('order:order_detail',
+                        kwargs={'slug': self.slug})
 
     def save(self, *args, **kwargs):
         if not self.slug:

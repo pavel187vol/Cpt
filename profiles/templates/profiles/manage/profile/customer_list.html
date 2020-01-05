@@ -1,0 +1,4 @@
+{% for customer in customers %}
+<a href="{{ customer.get_absolute_url }}">{{ customer }}</a>
+<br>
+{% endfor %}

@@ -1,3 +1,4 @@
 {% for executer in executers %}
 <p>{{executer}}</p>
+<a href="{{executer.get_absolute_url}}">{{executer.user.username}}</a>
 {% endfor %}

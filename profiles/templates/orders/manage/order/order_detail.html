@@ -1,10 +1,17 @@
 <h3>{{ order.title }}</h3>
+{% if request.user == creator.user%}
+<a href="#">Delete</a>
+{% endif %}
+<a href="{{order.customer.get_absolute_url}}"><b>{{order.customer}}</b></a>
+{% if request.user.id in executer_users%}
 <form class=""  method="post">{% csrf_token %}
   {{form.as_p}}
   <input type="submit" name="" value="Отправить">
 </form>
 <hr>
+{% endif %}
 {% for response in responses%}
 {{response}}
+<a href="{{response.executer.get_absolute_url}}">{{response.executer}}</a>
 <br>
 {% endfor %}

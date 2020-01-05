@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 from django.utils.text import slugify
+from django.urls import reverse
 
 class AbstractProfile(models.Model):
     user = models.ForeignKey(User,
@@ -27,12 +28,14 @@ class AbstractProfile(models.Model):
         super(AbstractProfile, self).save(*args, **kwargs)
 
 class Customer(AbstractProfile):
-    # order = models.ForeignKey('Order',
-    #                           related_name='customers',
-    #                           on_delete=models.SET_NULL,
-    #                           blank=True,
-    #                           null=True)
-    pass
+
+    def get_absolute_url(self):
+        return reverse('profile:customer_detail',
+                        kwargs={'slug': self.slug})
 
 class Executer(AbstractProfile):
     description = models.CharField(max_length=250)
+
+    def get_absolute_url(self):
+        return reverse('profile:executer_detail',
+                        kwargs={'slug': self.slug})

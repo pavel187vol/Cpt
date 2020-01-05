@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView, DeleteView
 from django.views.generic.detail import DetailView
 from .forms import CustomerProfileInfoForm, ExecuterProfileInfoForm, UserForm
 from django.views.generic.base import TemplateResponseMixin, View
-
+from orders.models import Order
 
 class UserProfileCreateMixin(TemplateResponseMixin, View):
     form_class = None
@@ -58,3 +58,24 @@ class ExecuterListView(ListView):
     def get_queryset(self):
         """"""
         return Executer.objects.order_by('id')
+
+class ExecuterDetailView(DetailView):
+    model = Executer
+    context_object_name = 'executer'
+    template_name = 'profiles/manage/profile/executer_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ExecuterDetailView, self).get_context_data(**kwargs)
+        context['orders'] = Order.objects.filter(executer=self.object,
+                                                condition=True)
+        return context
+
+class CustomerDetailView(DetailView):
+    model = Customer
+    template_name = 'profiles/manage/profile/customer_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CustomerDetailView, self).get_context_data(**kwargs)
+        context['orders'] = Order.objects.filter(customer=self.object,
+                                                condition=False)
+        return context

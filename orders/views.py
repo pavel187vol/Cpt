@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, View, \
+                                    DeleteView
 from django.views.generic.edit import FormMixin
 from .models import Order, ResponseOrder
 from .forms import ResponseForm
@@ -7,6 +8,9 @@ from profiles.models import Customer, Executer
 from django.http import HttpResponse
 from django.urls import reverse
 from django.http import HttpResponseForbidden
+from django.urls import reverse_lazy
+
+
 
 class OrderDetailView(FormMixin, DetailView):
     model = Order
@@ -21,6 +25,8 @@ class OrderDetailView(FormMixin, DetailView):
         context = super(OrderDetailView, self).get_context_data(**kwargs)
         context['responses'] = ResponseOrder.objects.filter(order=self.object)
         context['form'] = self.get_form()
+        context['executer_users'] = Executer.objects.values_list('user', flat=True)
+        context['creator'] = Customer.objects.get(user=self.request.user)
         return context
 
     def post(self, request, *args, **kwargs):
@@ -42,6 +48,7 @@ class OrderDetailView(FormMixin, DetailView):
 class OrderListView(ListView):
     model = Order
     context_object_name = 'orders'
+    queryset = Order.objects.filter(condition=False)
     template_name = 'orders/manage/order/order_list.html'
 
 class OrderCreateView(CreateView):
@@ -54,3 +61,8 @@ class OrderCreateView(CreateView):
         # customer =
         form.instance.customer = Customer.objects.get(user=self.request.user)
         return super().form_valid(form)
+
+class OrderDeleteView(DeleteView):
+    model = Order
+    success_url = reverse_lazy('order:order_list')
+    template_name = 'orders/manage/order/order_delete.html'

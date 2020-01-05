@@ -8,9 +8,12 @@
 {% endif %}
 <a href="{% url 'order:order_create'%}">Create</a>
 <br>
+<a href="{% url 'profile:executer_list'%}">Executer List</a>
+<a href="{% url 'profile:customer_list'%}">Customer List</a>
+<br>
 <hr>
 {% for order in orders %}
-  <a href="{% url 'order:order_detail' pk=order.pk%}">{{ order }}</a>
+  <a href="{{ order.get_absolute_url }}">{{ order }}</a>
   <br>
 
   {{ order.customer }}
