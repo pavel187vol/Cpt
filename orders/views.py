@@ -99,20 +99,3 @@ class OrderDeleteView(DeleteView):
         if self.object.customer.user != self.request.user:
             return redirect(self.success_url)
         return super().post(request, *args, **kwargs)
-
-class ResponseOrderDetailView(DetailView):
-    model = ResponseOrder
-    context_object_name = 'response'
-    template_name = 'orders/manage/order/response_detail.html'
-
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        if self.object.order.customer.user != self.request.user:
-            return redirect('order:order_list')
-        return super().post(request, *args, **kwargs)
-
-    def post(self,request, *args, **kwargs):
-        self.object = self.get_object()
-        form = self.get_object()
-        form.order.approv(form.executer)
-        return HttpResponse(form.order)
