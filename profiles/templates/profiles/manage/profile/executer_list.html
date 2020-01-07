@@ -1,4 +1,55 @@
-{% for executer in executers %}
-<p>{{executer}}</p>
-<a href="{{executer.get_absolute_url}}">{{executer.user.username}}</a>
-{% endfor %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title></title>
+  </head>
+  <body>
+    {% for executer in executers %}
+    <p>{{executer}}</p>
+    <a href="{{executer.get_absolute_url}}">{{executer.user.username}}</a>
+    {% endfor %}
+    {% if is_paginated %}
+    <hr>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center pagination-sm">
+            {% if page_obj.has_previous %}
+              {% if not search %}
+              <li class="page-item">
+                  <a class="page-link" href="{% url 'profile:executer_list' %}?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+              </li>
+              {% else %}
+                <li class="page-item">
+                  <a class="page-link" href="{% url 'profile:executer_list' %}?{{search}}&page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+              </li>
+              {% endif %}
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            {% endif %}
+            {% for object in page_obj.paginator.page_range %}
+                <li class="page-item"><a class="page-link" href="{% url 'profile:executer_list' %}?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+            {% endfor %}
+            {% if page_obj.has_next %}
+              {% if not search %}
+              <li class="page-item">
+                  <a class="page-link" href="{% url 'profile:executer_list' %}?page={{ page_obj.next_page_number }}">Next</a>
+              </li>
+              {% else %}
+                <li class="page-item">
+                  <a class="page-link" href="{% url 'profile:executer_list' %}?{{search}}&page={{ page_obj.next_page_number }}">Next</a>
+              </li>
+              {% endif %}
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#">Next</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+  </body>
+</html>

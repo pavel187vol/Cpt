@@ -4,7 +4,7 @@
 {% endif %}
 <a href="{{order.customer.get_absolute_url}}"><b>{{order.customer}}</b></a>
 
-<form class=""  method="post">{% csrf_token %}
+<form class=""  id='response-form' method="post">{% csrf_token %}
   {{form.as_p}}
   <input type="submit" name="" value="Отправить">
 </form>
@@ -15,15 +15,10 @@
   <input type="hidden" name="parent" value="{{response.executer_id}}">
   <input type="submit" value="Ok">
 </form>
-<!-- <a href="#formExecuter" onclick="approv('{{response.executer}}')">a</a> -->
 {% if request.user == creator.user%}
 <a href="{% url 'order:response_detail' pk=response.pk%}">Одобрить</a>
 {% endif %}
 <a href="{{response.executer.get_absolute_url}}">{{response.executer}}</a>
 <br>
-<!-- <script>
-  function approv(executer){
-    document.getElementById('parent').value = executer;
-  } -->
-<!-- </script> -->
+->
 {% endfor %}

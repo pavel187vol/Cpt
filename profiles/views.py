@@ -45,6 +45,7 @@ class CustomerListView(ListView):
     models = Customer
     context_object_name = 'customers'
     template_name = 'profiles/manage/profile/customer_list.html'
+    paginate_by = 2
 
     def get_queryset(self):
         """"""
@@ -54,7 +55,8 @@ class ExecuterListView(ListView):
     models = Executer
     context_object_name = 'executers'
     template_name = 'profiles/manage/profile/executer_list.html'
-
+    paginate_by = 2
+    
     def get_queryset(self):
         """"""
         return Executer.objects.order_by('id')

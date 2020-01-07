@@ -11,7 +11,7 @@ from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
 
 
-class OrderDetailView(FormMixin, DetailView):
+class OrderDetailView(AjaxableResponseMixin, FormMixin, DetailView):
     model = Order
     context_object_name = 'order'
     template_name = 'orders/manage/order/order_detail.html'
@@ -39,16 +39,17 @@ class OrderDetailView(FormMixin, DetailView):
             # return HttpResponse('{} - {}'.format(order.customer.user, request.user))
             return redirect(reverse('order:order_list'))
         else:
-            return HttpResponse('у вас нет доступа')
-        if request.user.executer.all():
-            self.object = self.get_object()
-            form = self.get_form()
-            if form.is_valid():
-                return self.form_valid(form)
+            if request.user.executer.all():
+                self.object = self.get_object()
+                form = self.get_form()
+                if form.is_valid():
+                    return self.form_valid(form)
+                else:
+                    return self.form_invalid(form)
             else:
-                return self.form_invalid(form)
-        else:
-            return redirect(reverse('profile:register_executer'))
+                return redirect(reverse('profile:register_executer'))
+            return HttpResponse('у вас нет доступа')
+
 
 
     def form_valid(self, form):
@@ -62,6 +63,7 @@ class OrderListView(ListView):
     context_object_name = 'orders'
     queryset = Order.objects.filter(condition=False)
     template_name = 'orders/manage/order/order_list.html'
+    paginate_by = 2
 
 
 class OrderCreateView(CreateView):
