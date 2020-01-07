@@ -6,7 +6,7 @@ class ExecuterModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         #Set up non-modified objects used by all test methods
-        user = User.objects.create_user(username='jacob',
+        User.objects.create_user(username='jacob',
                     email='jacob@…', password='top_secret')
         Executer.objects.create(user=user ,first_name='Big', last_name='Bob',
                     phone='375255300598', email='a-bla@gmail.com',)
