@@ -67,23 +67,22 @@ class OrderCreateView(CreateView):
 
 
     def get(self, request, *args, **kwargs):
-        customers = Customer.objects.all()
         if request.user.customer.all():
             return super().post(request, *args, **kwargs)
-        return redirect(self.success_url)
+        else:
+            return redirect('profile:register_customer')
 
     def post(self, request, *args, **kwargs):
-        customers = Customer.objects.values_list('user', flat=True)
-        if request.user in customers:
-            return HttpResponseForbidden()
+        if request.user.customer.all():
+            self.object = self.get_object()
+            form = self.get_form()
+            if form.is_valid():
+                return self.form_valid(form)
+            else:
+                return self.form_invalid(form)
         else:
-            return HttpResponse('p')
-        self.object = self.get_object()
-        form = self.get_form()
-        if form.is_valid():
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+            return redirect(reverse('profile:register_customer'))
+
 
     def form_valid(self, form):
         form.instance.customer = Customer.objects.get(user=self.request.user)
