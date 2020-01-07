@@ -79,3 +79,17 @@ class CustomerDetailView(DetailView):
         context['orders'] = Order.objects.filter(customer=self.object,
                                                 condition=False)
         return context
+
+class MyProfileModel(View):
+    model = None
+
+    def get_queryset(self):
+        return self.model.objects.filter(user=self.request.user)
+
+class MyProfileCustomer(MyProfileModel, DetailView):
+    model = Customer
+    template_name = 'profiles/manage/profile/my_profile_customer.html'
+
+class MyProfileExecuter(MyProfileModel, DetailView):
+    model = Executer
+    template_name = 'profiles/manage/profile/my_profile_executer.html'

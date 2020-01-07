@@ -9,4 +9,6 @@ urlpatterns = [
     path('customer_list/', views.CustomerListView.as_view(), name='customer_list'),
     path('executer/<slug>/', views.ExecuterDetailView.as_view(), name='executer_detail'),
     path('customer/<slug>/', views.CustomerDetailView.as_view(), name='customer_detail'),
+    path('my_profile/executer/<slug>/', views.MyProfileExecuter.as_view(), name='my_profile_executer'),
+    path('my_profile/customer/<slug>/', views.MyProfileCustomer.as_view(), name='my_profile_customer'),
 ]

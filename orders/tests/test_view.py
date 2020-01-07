@@ -51,7 +51,30 @@ class OrderDetailViewTest(TestSetUpMixin):
         order = Order.objects.get(id=1)
         resp = self.client.get('/order/{}/'.format(order.slug))
         self.assertEqual(resp.status_code, 200)
+        self.assertTemplateUsed(resp, 'orders/manage/order/order_detail.html')
 
+    def test_post_response_executer(self):
+        executer = Executer.objects.get(id=1)
+        order = Order.objects.get(id=1)
+        login = self.client.login(username='pavel', password='test_secret')
+        resp = self.client.post('/order/{}/'.format(order.slug),
+                                {'title':'title'})
+        self.assertEqual(resp.status_code, 200)
+        self.assertRedirects(resp, ('/order/{}/'.format(order.slug)))
+
+    def test_post_response_customer(self):
+        customer = Customer.objects.get(id=1)
+        order = Order.objects.get(id=1)
+        login = self.client.login(username='rood', password='test_secret')
+        resp = self.client.post('/order/{}/'.format(order.slug),
+                                {'title':'title'})
+        self.assertRedirects(resp, reverse('profile:register_executer'))
+
+    # def test_approv_order_customer(self):
+    #     customer = Customer.objects.get(id=1)
+    #     order = Order.objects.get(id=1)
+    #     login = self.client.login(username='rood', password='test_secret')
+    #     resp = self.client.post('/order/{}/'.format(order.slug))
 class OrderCreateViewTest(TestSetUpMixin):
 
     def test_get_create_executer(self):
@@ -59,14 +82,15 @@ class OrderCreateViewTest(TestSetUpMixin):
         login = self.client.login(username='pavel', password='test_secret')
         resp = self.client.get('/create/')
         self.assertEqual(resp.status_code, 302)
-        self.assertRedirects(resp, '/profile/register_customer/')
+        self.assertRedirects(resp, reverse('profile:register_customer'))
 
     def test_get_create_customer(self):
         customer = Customer.objects.get(id=1)
         login = self.client.login(username='rood', password='test_secret')
         resp = self.client.get('/create/')
-        self.assertEqual(resp.status_code, 200)
-        self.assertTemplateUsed(resp, 'orders/manage/order/order_create.html')
+        # self.assertEqual(resp.status_code, 200)
+        self.assertRedirects(resp, reverse('order:order_create'))
+        # self.assertTemplateUsed(resp, 'orders/manage/order/order_create.html')
 
     def test_post_create_executer(self):
         executer = Executer.objects.get(id=1)
@@ -75,6 +99,18 @@ class OrderCreateViewTest(TestSetUpMixin):
                                             'text': 'text',
                                             'price': 400})
         self.assertRedirects(resp, reverse('profile:register_customer'))
+
+    # def test_get_create_anonymus(self):
+    #     resp = self.client.get('/create/')
+    #     self.assertEqual(resp.status_code, 302)
+    #     self.assertRedirects(resp, '/profile/register_customer/')
+
+
+    # def test_post_create_anonymus(self):
+    #     resp = self.client.post('/create/', {'title': 'title',
+    #                                         'text': 'text',
+    #                                         'price': 400})
+    #     self.assertRedirects(resp, reverse('profile:register_customer'))
 
     # def test_post_create_customer(self):
     #     customer = Customer.objects.get(id=1)

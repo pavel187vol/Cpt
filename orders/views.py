@@ -29,13 +29,18 @@ class OrderDetailView(FormMixin, DetailView):
         return context
 
     def post(self, request, *args, **kwargs):
-        if request.POST.get('parent', None):
+        order = self.get_object()
+        if request.POST.get('parent', None)\
+        and order.customer.user == request.user:
             executer_id = request.POST.get('parent')
             executer = Executer.objects.get(id=executer_id)
             order = self.get_object()
             order.approv(executer)
-            return HttpResponse(executer)
-        elif request.user.executer.all():
+            # return HttpResponse('{} - {}'.format(order.customer.user, request.user))
+            return redirect(reverse('order:order_list'))
+        else:
+            return HttpResponse('у вас нет доступа')
+        if request.user.executer.all():
             self.object = self.get_object()
             form = self.get_form()
             if form.is_valid():
@@ -43,7 +48,7 @@ class OrderDetailView(FormMixin, DetailView):
             else:
                 return self.form_invalid(form)
         else:
-            return HttpResponse('lox')
+            return redirect(reverse('profile:register_executer'))
 
 
     def form_valid(self, form):
