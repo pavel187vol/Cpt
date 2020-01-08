@@ -1,4 +1,21 @@
-<h3>{{ order.title }}</h3>
+{% extends 'base.html'%}
+{% block content%}
+<div class="container py-3">
+    <div class="row mt-2">
+      <div class="row mb-5">
+          <div class="col-md-3 col-sm-3 col-12 text-center">
+              <a href="#modalProduct"><img src="https://robohash.org/N1W.png" class="mx-auto img-fluid" alt="product thumbnail"></a>
+          </div>
+          <div class="col-md-9 col-sm-7 col-6">
+              <h5 class="text-uppercase"><a href="#modalProduct" data-toggle="modal">{{order.title}}</a></h5>
+              <h6 class="text-wide"><a href="{{order.customer.get_absolute_url}}">{{order.customer}}</a></h6>
+              <p >
+                  {{ order.text}}
+              </p>
+              <a href="#modalProduct" class="btn btn-outline-secondary mt-2">${{order.price}}</a>
+          </div>
+      </div>
+</div>
 {% if request.user == creator.user%}
 <a href="{% url 'order:order_delete' slug=order.slug%}">Delete</a>
 {% endif %}
@@ -10,15 +27,25 @@
 </form>
 <hr>
 {% for response in responses%}
-{{response}}
-<form method="post" id="formExecuter">{% csrf_token %}
+
+<div class="card">
+  <h5 class="card-header">{{response.customer}}</h5>
+  <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">{{response}}</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+<!-- <form method="post" id="formExecuter">{% csrf_token %}
   <input type="hidden" name="parent" value="{{response.executer_id}}">
   <input type="submit" value="Ok">
-</form>
+</form> -->
 {% if request.user == creator.user%}
 <a href="{% url 'order:response_detail' pk=response.pk%}">Одобрить</a>
 {% endif %}
-<a href="{{response.executer.get_absolute_url}}">{{response.executer}}</a>
+<!-- <a href="{{response.executer.get_absolute_url}}">{{response.executer}}</a> -->
 <br>
-->
 {% endfor %}
+
+</div>
+{% endblock %}

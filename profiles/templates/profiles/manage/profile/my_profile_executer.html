@@ -1,1 +1,144 @@
-{{object}}
+{% extends 'base.html'%}
+{% block content%}
+<div class="container py-4 my-2">
+    <div class="row">
+        <div class="col-md-4 pr-md-5">
+            <img class="w-100 rounded border" src="https://cdn.bootstrapsnippet.net/assets/image/dummy-avatar.jpg" />
+            <div class="pt-4 mt-2">
+                <section class="mb-4 pb-1">
+                    <h3 class="h6 font-weight-light text-secondary text-uppercase">Work Experiences</h3>
+                    <div class="work-experience pt-2">
+                        <div class="work mb-4">
+                            <strong class="h5 d-block text-secondary font-weight-bold mb-1">Prodesign Inc</strong>
+                            <strong class="h6 d-block text-warning mb-1">Front End Developer</strong>
+                            <p class="text-secondary">Southern Street Floral Park, NY 11001</p>
+                        </div>
+                        <div class="work mb-4">
+                            <strong class="h5 d-block text-secondary font-weight-bold mb-1">Blue Tech</strong>
+                            <strong class="h6 d-block text-warning mb-1">Senior Programmer</strong>
+                            <p class="text-secondary">George Avenue Mobile, AL 36608</p>
+                        </div>
+                    </div>
+                </section>
+                <section class="mb-5 mb-md-0">
+                    <h3 class="h6 font-weight-light text-secondary text-uppercase">Skills</h3>
+                    <div class="skills pt-1 row">
+                        <div class="col-4 mb-2">
+                            <div class="chart" data-percent="95" data-scale-color="#fff"><span>PHP</span></div>
+                        </div>
+                        <div class="col-4 mb-2">
+                            <div class="chart" data-percent="85" data-scale-color="#fff"><span>Ruby</span></div>
+                        </div>
+                        <div class="col-4 mb-2">
+                            <div class="chart" data-percent="90" data-scale-color="#fff"><span>Java</span></div>
+                        </div>
+                        <div class="col-4 mb-2">
+                            <div class="chart" data-percent="82" data-scale-color="#fff"><span>Python</span></div>
+                        </div>
+                        <div class="col-4 mb-2">
+                            <div class="chart" data-percent="70" data-scale-color="#fff"><span>C++</span></div>
+                        </div>
+                        <div class="col-4 mb-2">
+                            <div class="chart" data-percent="60" data-scale-color="#fff"><span>ASP</span></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="d-flex align-items-center">
+                <h2 class="font-weight-bold m-0">
+                    Harry J. Hamilton
+                </h2>
+                <address class="m-0 pt-2 pl-0 pl-md-4 font-weight-light text-secondary">
+                    <i class="fa fa-map-marker"></i>
+                    Garden City, NY
+                </address>
+            </div>
+            <p class="h5 text-primary mt-2 d-block font-weight-light">
+                Full-Stack Programmer
+            </p>
+            <p class="lead mt-4">All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.</p>
+            <section class="mt-5">
+                <h3 class="h6 font-weight-light text-secondary text-uppercase">Rankings</h3>
+                <div class="d-flex align-items-center">
+                    <strong class="h1 font-weight-bold m-0 mr-3">4.85</strong>
+                    <div>
+                        <input data-filled="fa fa-2x fa-star mr-1 text-warning" data-empty="fa fa-2x fa-star-o mr-1 text-light" value="5" type="hidden" class="rating" data-readonly />
+                    </div>
+                </div>
+            </section>
+            <section class="d-flex mt-5">
+                <button class="btn btn-light bg-transparent mr-3 mb-3">
+                    <i class="fa fa-comments"></i>
+                    Private Message
+                </button>
+                <button class="btn btn-light bg-transparent mr-3 mb-3">
+                    <i class="fa fa-warning"></i>
+                    Report User
+                </button>
+                <button class="btn btn-primary mb-3">
+                    <i class="fa fa-check"></i>
+                    Hire Me
+                </button>
+            </section>
+            <section class="mt-4">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+                            About
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+                            Reviews
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">
+                            Recent Projects
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content py-4" id="myTabContent">
+                    <div class="tab-pane py-3 fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <h6 class="text-uppercase font-weight-light text-secondary">
+                            Contact Information
+                        </h6>
+                        <dl class="row mt-4 mb-4 pb-3">
+                            <dt class="col-sm-3">Phone</dt>
+                            <dd class="col-sm-9">+1 123 456 78900</dd>
+
+                            <dt class="col-sm-3">Home address</dt>
+                            <dd class="col-sm-9">
+                                <address class="mb-0">
+                                    2983 Heavner Court<br/>
+                                    Garden City, NY 11530
+                                </address>
+                            </dd>
+
+                            <dt class="col-sm-3">Email address</dt>
+                            <dd class="col-sm-9">
+                                <a href="mailto:aang.is.kefy@gmail.com">aang.is.kefy@gmail.com</a>
+                            </dd>
+                        </dl>
+
+                        <h6 class="text-uppercase font-weight-light text-secondary">
+                            Basic Information
+                        </h6>
+                        <dl class="row mt-4 mb-4 pb-3">
+                            <dt class="col-sm-3">Birthday</dt>
+                            <dd class="col-sm-9">January 21, 1991</dd>
+
+                            <dt class="col-sm-3">Gender</dt>
+                            <dd class="col-sm-9">Male</dd>
+                        </dl>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

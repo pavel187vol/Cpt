@@ -1,5 +1,7 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 {% block content%}
+
+
 <div class="container py-3">
     <div class="row mt-2">
         <div class="col-md-3 pb-4">
@@ -48,18 +50,17 @@
         <div class="col-md-9">
 
             <!-- product list-->
-            {% for order in orders%}
+            {% for order in orders %}
             <div class="row mb-5">
                 <div class="col-md-2 col-sm-3 col-12 text-center">
                     <a href="{{order.get_absolute_url}}"><img src="https://robohash.org/N1W.png" class="mx-auto img-fluid" alt="product thumbnail"></a>
                 </div>
                 <div class="col-12 d-block d-sm-none"> &nbsp; </div>
                 <div class="col-md-6 col-sm-7 col-6">
-
-                    <h5 class="text-uppercase"><a href="{{order.get_absolute_url}}" data-toggle="modal">{{order.title|truncatewords:'7'}}</a></h5>
+                    <h5 class="text-uppercase"><a href="#modalProduct" data-toggle="modal">{{order.title|truncatewords:"10"}}</a></h5>
                     <h6 class="small text-wide">3 styles, 6 colors</h6>
                     <p class="text-truncate mb-0">
-                        {{ order.text|truncatewords:'12'}}
+                        {{order.text|truncatewords:'10'}}
                     </p>
                     <a href="#modalProduct" class="btn btn-outline-secondary mt-2">$45.00</a>
                 </div>
@@ -69,76 +70,8 @@
                 </div>
             </div>
             <hr>
-            {% endfor%}
-        </div>
-    </div>
-    {% if is_paginated %}
-    <hr>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center pagination-sm">
-            {% if page_obj.has_previous %}
-              {% if not search %}
-              <li class="page-item">
-                  <a class="page-link" href="{% url 'order:order_list' %}?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
-              </li>
-              {% else %}
-                <li class="page-item">
-                  <a class="page-link" href="{% url 'package_list' %}?{{search}}&page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
-              </li>
-              {% endif %}
-            {% else %}
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Previous</a>
-            </li>
-            {% endif %}
-            {% for object in page_obj.paginator.page_range %}
-                <li class="page-item"><a class="page-link" href="{% url 'order:order_list' %}?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
-            {% endfor %}
-            {% if page_obj.has_next %}
-              {% if not search %}
-              <li class="page-item">
-                  <a class="page-link" href="{% url 'order:order_list' %}?page={{ page_obj.next_page_number }}">Next</a>
-              </li>
-              {% else %}
-                <li class="page-item">
-                  <a class="page-link" href="{% url 'order:order_list' %}?{{search}}&page={{ page_obj.next_page_number }}">Next</a>
-              </li>
-              {% endif %}
-            {% else %}
-            <li class="page-item disabled">
-                <a class="page-link" href="#">Next</a>
-            </li>
-            {% endif %}
-        </ul>
-    </nav>
-    {% endif %}
-    <div id="modalProduct" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="mb-0">Digital SLR</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-4 text-center">
-                            <img src="//robohash.org/92340?size=150x150" class="mx-auto img-fluid" alt="Product detail image">
-                            <h6 class="small text-wide text-uppercase"><a href="">Digital SLR</a></h6>
-                        </div>
-                        <div class="col-lg-8">
-                            <p class="lead">
-                                Shoreditch vegan artisan Helvetica. Tattooed Codeply Echo Park Godard kogi, next level irony ennui twee squid fap selvage. Meggings flannel Brooklyn literally small batch, mumblecore PBR try-hard kale chips.
-                            </p>
-                            <h2>$129.00</h2>
-                            <a href="./cart.html" class="btn btn-lg btn-primary mt-1">Add to Cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+          </div>
+          {% endfor %}
+
 </div>
-{% endblock %}
+  {% endblock %}

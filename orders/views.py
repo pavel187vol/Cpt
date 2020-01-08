@@ -63,7 +63,7 @@ class OrderListView(ListView):
     context_object_name = 'orders'
     queryset = Order.objects.filter(condition=False)
     template_name = 'orders/manage/order/order_list.html'
-    paginate_by = 2
+    paginate_by = 5
 
 
 class OrderCreateView(CreateView):

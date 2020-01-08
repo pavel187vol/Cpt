@@ -1,58 +1,73 @@
 {% extends 'base.html'%}
-
+{% load widget_tweaks %}
 {% block content %}
 <div class="container">
-<form enctype="multipart/form-data" method="POST">{% csrf_token %}
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
-                <div class="panel-body">
-                    {% if error_message %}
-                        <p class="bg-danger p-d ml-b">{{ error_message }}</p>
-                    {% endif %}
+    <div class="row">
+        <div class="col-md-12 min-vh-100 d-flex flex-column justify-content-center">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 mx-auto">
 
-                    <div class="form-group clearfix">
-                        <label for="{{ form.username.id_for_label }}" class="col-md-4 control-label text-right">Username<span class="text-red">*</span>:</label>
-                        <div class="col-md-6">
-                            {{ user_form.username }}
+                    <!-- form card login -->
+                    <div class="card rounded shadow shadow-sm">
+                        <div class="card-header">
+                            <h3 class="mb-0">Login</h3>
                         </div>
-                    </div>
-                    <div class="form-group clearfix">
-                        <label for="{{ form.email.id_for_label }}" class="col-md-4 control-label text-right">Email<span class="text-red">*</span>:</label>
-                        <div class="col-md-6">
-                            {{ profile_form.email }}
+                        <div class="card-body">
+                            <form class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST">{% csrf_token%}
+                                <div class="form-group">
+                                    <label for="uname1">Username</label>
+                                    {% render_field user_form.username class="form-control form-control-lg rounded-0" %}
+                                    <div class="invalid-feedback">Oops, you missed this one.</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    {% render_field user_form.password class="form-control form-control-lg rounded-0" %}
+                                    <div class="invalid-feedback">Enter your password too!</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    {% render_field profile_form.email class="form-control form-control-lg rounded-0" %}
+                                    <div class="invalid-feedback">Enter your password too!</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    {% render_field profile_form.first_name class="form-control form-control-lg rounded-0" %}
+                                    <div class="invalid-feedback">Enter your password too!</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    {% render_field profile_form.first_name class="form-control form-control-lg rounded-0" %}
+                                    <div class="invalid-feedback">Enter your password too!</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    {% render_field profile_form.phone class="form-control form-control-lg rounded-0" %}
+                                    <div class="invalid-feedback">Enter your password too!</div>
+                                </div>
+                                <div>
+                                    <label class="custom-control custom-checkbox">
+                                      <input type="checkbox" class="custom-control-input">
+                                      <span class="custom-control-indicator"></span>
+                                      <span class="custom-control-description small text-dark">Remember me on this computer</span>
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-success btn-lg float-right" id="btnLogin">Login</button>
+      
+                            </form>
                         </div>
+                        <!--/card-block-->
                     </div>
-                    <div class="form-group clearfix">
-                        <label for="{{ form.password.id_for_label }}" class="col-md-4 control-label text-right">Password<span class="text-red">*</span>:</label>
-                        <div class="col-md-6">
-                            {{ user_form.password }}
-                        </div>
-                    </div>
-                    <div class="form-group clearfix">
-                        <label for="{{ form.first_name.id_for_label }}" class="col-md-4 control-label text-right">First Name:</label>
-                        <div class="col-md-6">
-                            {{ profile_form.first_name }}
-                        </div>
-                    </div>
-                    <div class="form-group clearfix">
-                        <label for="{{ form.last_name.id_for_label }}" class="col-md-4 control-label text-right">Last Name:</label>
-                        <div class="col-md-6">
-                            {{ profile_form.last_name }}
-                        </div>
-                    </div>
-                    <div class="form-group clearfix">
-                        <label for="{{ form.phone_number.id_for_label }}" class="col-md-4 control-label text-right">Phone Number:</label>
-                        <div class="col-md-6">
-                            {{ profile_form.phone }}
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-md-offset-4">
-                        <input type="submit" value="Register" class="btn btn-success">
-                    </div>
+                    <!-- /form card login -->
+
                 </div>
+
+
             </div>
+            <!--/row-->
+
         </div>
-    </form>
+        <!--/col-->
+    </div>
+    <!--/row-->
 </div>
 {% endblock %}

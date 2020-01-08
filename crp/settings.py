@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'profiles.apps.ProfilesConfig',
     'phonenumber_field',
+    'widget_tweaks',
     'orders.apps.OrdersConfig'
 ]
 

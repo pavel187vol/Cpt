@@ -10,64 +10,37 @@
     <title>Starter Template for Bootstrap</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
+<body>
 
-    <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+    <nav class="navbar navbar-light navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'order:order_list'%}">Carpet</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                  {% if request.user.is_authenticated%}
+                    <li class="nav-item"><a href="{% url 'logout'%}" data-toggle="modal" class="nav-link">Logout</a></li>
+                  {% else %}
+                  <li class="nav-item"><a href="{% url 'login'%}" data-toggle="modal" class="nav-link">Login</a></li>
+                  {% endif%}
 
-    <!-- Custom styles for this template -->
-    <link href="starter-template.css" rel="stylesheet">
-  </head>
-
-  <body>
-
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-
-
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'order:order_list'%}">Orders<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+                  {% if request.user.executer.get %}
+                  <li class="nav-item"><a href="{% url 'profile:my_profile_executer' slug=request.user.username%}" data-toggle="modal" class="nav-link">{{request.user.executer.get}}</a></li>
+                  {% elif request.user.customer.get %}
+                  <li class="nav-item"><a href="#modal1" data-toggle="modal" class="nav-link">{{request.user.customer.get}}</a></li>
+                  {% endif %}
+                </ul>
             </div>
-          </li>
-        </ul>
-        {% if request.user %}
-        <a class="my-2 my-lg-0" href="{% url 'logout'%}">Logout</a>
-        <a class="my-2 my-lg-0" href="{% url 'login'%}">Login</a>
-        {% else %}
-        {% endif %}
-        <a class="my-2 my-lg-0" href="#">My Profile</a>
-      </div>
+        </div>
     </nav>
-
-    <main role="main" class="container">
-
-      <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-      </div>
-
-    </main><!-- /.container -->
-    {% block content%}
-    {% endblock %}
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-  </body>
+{% block content%}
+{% endblock %}
+    </body>
 </html>
