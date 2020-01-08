@@ -1,8 +1,28 @@
+{% extends 'base.html'%}
+{% block content%}
 <h2>Login</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Login</button>
-</form>
 <a href="{% url 'profile:register_customer'%}">Register Customer</a>
 <a href="{% url 'profile:register_executer'%}">Register Executer</a>
+<body class="text-center">
+  <!-- <form class="form=signin"method="post">
+    <button type="submit">Login</button>
+  </form> -->
+  <form class="form-signin">
+    {% csrf_token %}
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputEmail" class="sr-only">Usernmae</label>
+    {{ form.username }}
+    <!-- <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus> -->
+    <label for="inputPassword" class="sr-only">Password</label>
+    {{ form.passwor }}
+    <!-- <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>  -->
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+  </form>
+</body>
+{% endblock %}

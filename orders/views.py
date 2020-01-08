@@ -11,7 +11,7 @@ from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
 
 
-class OrderDetailView(AjaxableResponseMixin, FormMixin, DetailView):
+class OrderDetailView(FormMixin, DetailView):
     model = Order
     context_object_name = 'order'
     template_name = 'orders/manage/order/order_detail.html'
