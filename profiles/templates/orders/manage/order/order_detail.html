@@ -1,10 +1,11 @@
 {% extends 'base.html'%}
 {% block content%}
+{% load crispy_forms_tags %}
 <div class="container py-3">
     <div class="row mt-2">
       <div class="row mb-5">
           <div class="col-md-3 col-sm-3 col-12 text-center">
-              <a href="#modalProduct"><img src="https://robohash.org/N1W.png" class="mx-auto img-fluid" alt="product thumbnail"></a>
+              <a href="#modalProduct"><img src="{{order.image.url}}" class="mx-auto img-fluid" alt="product thumbnail"></a>
           </div>
           <div class="col-md-9 col-sm-7 col-6">
               <h5 class="text-uppercase"><a href="#modalProduct" data-toggle="modal">{{order.title}}</a></h5>
@@ -13,33 +14,26 @@
                   {{ order.text}}
               </p>
               <a href="#modalProduct" class="btn btn-outline-secondary mt-2">${{order.price}}</a>
+              {% if request.user == order.customer.user %}
+              <a href="{% url 'order:order_delete' slug=order.slug%}" class="btn btn-outline-secondary mt-2">Delete</a>
+              {% endif %}
           </div>
       </div>
 </div>
-{% if request.user == creator.user%}
-<a href="{% url 'order:order_delete' slug=order.slug%}">Delete</a>
-{% endif %}
-<a href="{{order.customer.get_absolute_url}}"><b>{{order.customer}}</b></a>
 
-<form class=""  id='response-form' method="post">{% csrf_token %}
-  {{form.as_p}}
-  <input type="submit" name="" value="Отправить">
-</form>
-<hr>
 {% for response in responses%}
 
 <div class="card">
-  <h5 class="card-header">{{response.customer}}</h5>
+  <h5 class="card-header"><a href="{{response.executer.get_absolute_url}}">{{response.executer}}</a></h5>
   <div class="card-body">
     <h5 class="card-title">Special title treatment</h5>
     <p class="card-text">{{response}}</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+    <form method="post" id="formExecuter">{% csrf_token %}
+      <input type="hidden" name="parent" value="{{response.executer_id}}">
+      <input class="btn btn-primary" type="submit" value="Ok">
+    </form>
   </div>
 </div>
-<!-- <form method="post" id="formExecuter">{% csrf_token %}
-  <input type="hidden" name="parent" value="{{response.executer_id}}">
-  <input type="submit" value="Ok">
-</form> -->
 {% if request.user == creator.user%}
 <a href="{% url 'order:response_detail' pk=response.pk%}">Одобрить</a>
 {% endif %}
@@ -47,5 +41,9 @@
 <br>
 {% endfor %}
 
+<form  method="post">{% csrf_token %}
+  {{form|crispy}}
+  <input type="submit" name="" value="Отправить">
+</form>
 </div>
 {% endblock %}

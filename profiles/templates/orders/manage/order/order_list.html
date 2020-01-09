@@ -51,7 +51,7 @@
             {% for order in orders%}
             <div class="row mb-5">
                 <div class="col-md-2 col-sm-3 col-12 text-center">
-                    <a href="{{order.get_absolute_url}}"><img src="https://robohash.org/N1W.png" class="mx-auto img-fluid" alt="product thumbnail"></a>
+                    <a href="{{order.get_absolute_url}}"><img src="{{order.image.url}}" class="mx-auto img-fluid" alt="{{order.title}}"></a>
                 </div>
                 <div class="col-12 d-block d-sm-none"> &nbsp; </div>
                 <div class="col-md-6 col-sm-7 col-6">

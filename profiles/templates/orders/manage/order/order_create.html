@@ -1,4 +1,16 @@
-<form method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Done">
-</form>
+{% extends 'base.html'%}
+{% block content %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+<div class="container py-3">
+    <div class="row mt-2">
+      <form method="post" enctype="multipart/form-data">{% csrf_token %}
+        {{form.title|as_crispy_field}}
+        {{form.text|as_crispy_field}}
+        {{form.price|as_crispy_field}}
+        {{form.image}}
+        <input type="submit" name="" value="Done">
+      </form>
+    </div>
+</div>
+{% endblock %}

@@ -56,20 +56,22 @@ class ExecuterListView(ListView):
     context_object_name = 'executers'
     template_name = 'profiles/manage/profile/executer_list.html'
     paginate_by = 2
-    
+
     def get_queryset(self):
         """"""
         return Executer.objects.order_by('id')
 
 class ExecuterDetailView(DetailView):
     model = Executer
-    context_object_name = 'executer'
     template_name = 'profiles/manage/profile/executer_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super(ExecuterDetailView, self).get_context_data(**kwargs)
         context['orders'] = Order.objects.filter(executer=self.object,
                                                 condition=True)
+        context['success_order'] = Order.objects.filter(executer=self.object,
+                                                condition=True,
+                                                condition_success=True)
         return context
 
 class CustomerDetailView(DetailView):

@@ -36,7 +36,6 @@ class OrderDetailView(FormMixin, DetailView):
             executer = Executer.objects.get(id=executer_id)
             order = self.get_object()
             order.approv(executer)
-            # return HttpResponse('{} - {}'.format(order.customer.user, request.user))
             return redirect(reverse('order:order_list'))
         else:
             if request.user.executer.all():
@@ -69,9 +68,10 @@ class OrderListView(ListView):
 class OrderCreateView(CreateView):
     model = Order
     fields = ['title', 'text', 'image', 'price']
-    success_url = 'order:order_list'
     template_name = 'orders/manage/order/order_create.html'
 
+    def get_success_url(self):
+        return reverse('order:order_detail',kwargs={'slug':self.object.slug})
 
     def get(self, request, *args, **kwargs):
         if request.user.customer.all():
@@ -81,7 +81,7 @@ class OrderCreateView(CreateView):
 
     def post(self, request, *args, **kwargs):
         if request.user.customer.all():
-            self.object = self.get_object()
+            # self.object = self.get_object()
             form = self.get_form()
             if form.is_valid():
                 return self.form_valid(form)

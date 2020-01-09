@@ -6,14 +6,17 @@ from django.urls import reverse
 
 class AbstractProfile(models.Model):
     user = models.ForeignKey(User,
-                             related_name='%(class)s',
-                             on_delete=models.CASCADE)
+                            related_name='%(class)s',
+                            on_delete=models.CASCADE)
     first_name = models.CharField(max_length=70)
     last_name = models.CharField(max_length=70)
     phone = PhoneNumberField(blank=True, unique=True)
     email = models.EmailField(unique=True)
     created = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField()
+    image = models.ImageField(upload_to='profile',
+                            default='profile_default.png')
+    city = models.CharField(max_length=100, blank=True)
 
     class Meta:
         abstract = True
@@ -34,7 +37,7 @@ class Customer(AbstractProfile):
                         kwargs={'slug': self.slug})
 
 class Executer(AbstractProfile):
-    description = models.CharField(max_length=250)
+    profession = models.CharField(max_length=250)
 
     def get_absolute_url(self):
         return reverse('profile:executer_detail',

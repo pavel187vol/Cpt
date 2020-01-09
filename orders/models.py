@@ -10,7 +10,7 @@ class Order(models.Model):
     title = models.CharField(max_length=250)
     text = models.TextField()
     image = models.ImageField(upload_to='orders',
-                                blank=True)
+                                blank=True, default='order_default.png')
     price = models.DecimalField(max_digits=10, decimal_places=2)
     executer = models.ForeignKey(Executer,
                                 related_name='orders',
