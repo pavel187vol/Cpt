@@ -9,6 +9,10 @@ ADMINS = (
 ALLOWED_HOSTS = ['*']
 
 DATABASES = {
-    'default': {
-    }
+   'default': {
+       'ENGINE': 'django.db.backends.postgresql',
+       'NAME': 'crp1',
+       'USER': 'rood188',
+       'PASSWORD': 'zhelezo187',
+   }
 }
