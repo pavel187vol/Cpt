@@ -14,7 +14,7 @@ import os
 # SECRET_KEY = os.environ["SECRET_KEY"]
 SECRET_KEY = 'k0!%g!c*a_m2j_gjt@37i@7ikurmdpp)4_()=nzi25tl&&ji*0'
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir))))
+BASE_DIR = os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir)))
 # BASE_DIR = os.path.dirname(__file__)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
