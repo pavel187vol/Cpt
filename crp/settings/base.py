@@ -15,7 +15,7 @@ import os
 SECRET_KEY = 'k0!%g!c*a_m2j_gjt@37i@7ikurmdpp)4_()=nzi25tl&&ji*0'
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir))))
-
+# BASE_DIR = os.path.dirname(__file__)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -116,7 +116,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-BASE_DIR = os.path.dirname(__file__)
+
 TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 SITE_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
