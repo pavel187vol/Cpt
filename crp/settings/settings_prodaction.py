@@ -5,7 +5,7 @@ ADMINS = (
 )
 
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['frozen-mesa-66627.herokuapp.com']
 
 DATABASES = {
    'default': {
