@@ -15,7 +15,7 @@ class AbstractProfile(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField()
     image = models.ImageField(upload_to='profile',
-                            default='profile_default.png')
+                            default='default/profile_default.png')
     city = models.CharField(max_length=100, blank=True)
 
     class Meta:

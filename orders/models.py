@@ -10,7 +10,7 @@ class Order(models.Model):
     title = models.CharField(max_length=250)
     text = models.TextField()
     image = models.ImageField(upload_to='orders',
-                                blank=True, default='order_default.png')
+                                blank=True, default='default/order_default.png')
     price = models.DecimalField(max_digits=10, decimal_places=2)
     executer = models.ForeignKey(Executer,
                                 related_name='orders',
@@ -52,6 +52,7 @@ class ResponseOrder(models.Model):
 
     def __str__(self):
         return self.title
+
 
     # def save(self, *args, **kwargs):
     #     if not self.executer:

@@ -1,7 +1,3 @@
-{% for customer in customers %}
-<a href="{{ customer.get_absolute_url }}">{{ customer }}</a>
-<br>
-{% endfor %}
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -11,10 +7,9 @@
     <title></title>
   </head>
   <body>
-    {% for customer in customers %}
+    {% for executer in object_list %}
     <p>{{executer}}</p>
-    <a href="{{ customer.get_absolute_url }}">{{ customer }}</a>
-    <br>
+    <a href="{{executer.get_absolute_url}}">{{executer.user.username}}</a>
     {% endfor %}
     {% if is_paginated %}
     <hr>
@@ -23,11 +18,11 @@
             {% if page_obj.has_previous %}
               {% if not search %}
               <li class="page-item">
-                  <a class="page-link" href="{% url 'profile:customer_list' %}?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+                  <a class="page-link" href="{% url 'profile:executer_list' %}?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
               </li>
               {% else %}
                 <li class="page-item">
-                  <a class="page-link" href="{% url 'profile:customer_list' %}?{{search}}&page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+                  <a class="page-link" href="{% url 'profile:executer_list' %}?{{search}}&page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
               </li>
               {% endif %}
             {% else %}
@@ -36,16 +31,16 @@
             </li>
             {% endif %}
             {% for object in page_obj.paginator.page_range %}
-                <li class="page-item"><a class="page-link" href="{% url 'profile:customer_list' %}?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'profile:executer_list' %}?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
             {% endfor %}
             {% if page_obj.has_next %}
               {% if not search %}
               <li class="page-item">
-                  <a class="page-link" href="{% url 'profile:customer_list' %}?page={{ page_obj.next_page_number }}">Next</a>
+                  <a class="page-link" href="{% url 'profile:executer_list' %}?page={{ page_obj.next_page_number }}">Next</a>
               </li>
               {% else %}
                 <li class="page-item">
-                  <a class="page-link" href="{% url 'profile:customer_list' %}?{{search}}&page={{ page_obj.next_page_number }}">Next</a>
+                  <a class="page-link" href="{% url 'profile:executer_list' %}?{{search}}&page={{ page_obj.next_page_number }}">Next</a>
               </li>
               {% endif %}
             {% else %}

@@ -34,9 +34,6 @@
     </form>
   </div>
 </div>
-{% if request.user == creator.user%}
-<a href="{% url 'order:response_detail' pk=response.pk%}">Одобрить</a>
-{% endif %}
 <!-- <a href="{{response.executer.get_absolute_url}}">{{response.executer}}</a> -->
 <br>
 {% endfor %}
