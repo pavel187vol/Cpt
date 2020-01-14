@@ -14,7 +14,7 @@ from .mixins import *
 class OrderDetailView(ExecuterObjectCreateMixin, FormMixin, DetailObjectMixin):
     model = Order
     context_object_name = 'order'
-    template_name = 'orders/manage/order/order_detail.html'
+    template_name = 'orders/order_detail.html'
     form_class = ResponseForm
 
     def get_success_url(self):
@@ -37,14 +37,14 @@ class OrderListView(ListView):
     model = Order
     context_object_name = 'orders'
     queryset = Order.objects.filter(condition=False)
-    template_name = 'orders/manage/order/order_list.html'
+    template_name = 'orders/order_list.html'
     paginate_by = 5
 
 
 class OrderCreateView(CustomerObjectCreateMixin, CreateView):
     model = Order
     fields = ['title', 'text', 'image', 'price']
-    template_name = 'orders/manage/order/order_create.html'
+    template_name = 'orders/order_create.html'
 
     def get_success_url(self):
         return reverse('order:order_detail',kwargs={'slug':self.object.slug})
@@ -56,4 +56,4 @@ class OrderCreateView(CustomerObjectCreateMixin, CreateView):
 class OrderDeleteView(CreatorCustomerRequiredMixin, DeleteView):
     model = Order
     success_url = reverse_lazy('order:order_list')
-    template_name = 'orders/manage/order/order_delete.html'
+    template_name = 'orders/order_delete.html'
